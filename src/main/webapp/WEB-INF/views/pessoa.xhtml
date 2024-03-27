@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Gerenciamento de Pessoas</title>
+</h:head>
+<h:body>
+    <h1>Gerenciamento de Pessoas</h1>
+
+    <h:form id="pessoaForm">
+        <p:panelGrid columns="2">
+            <p:outputLabel for="nome" value="Nome:"/>
+            <p:inputText id="nome" value="#{pessoaBean.pessoa.nome}"/>
+
+            <p:outputLabel for="idade" value="Idade:"/>
+            <p:inputText id="idade" value="#{pessoaBean.pessoa.idade}"/>
+
+            <p:outputLabel for="sexo" value="Sexo:"/>
+            <p:inputText id="sexo" value="#{pessoaBean.pessoa.sexo}"/>
+        </p:panelGrid>
+
+        <p:commandButton value="Salvar" action="#{pessoaBean.salvarPessoa}" update="pessoaForm"/>
+    </h:form>
+
+    <br/>
+
+    <h2>Pessoas Cadastradas</h2>
+    <p:dataTable var="pessoa" value="#{pessoaBean.pessoas}" emptyMessage="Nenhuma pessoa encontrada.">
+        <p:column headerText="Nome">
+            <h:outputText value="#{pessoa.nome}"/>
+        </p:column>
+        <p:column headerText="Idade">
+            <h:outputText value="#{pessoa.idade}"/>
+        </p:column>
+        <p:column headerText="Sexo">
+            <h:outputText value="#{pessoa.sexo}"/>
+        </p:column>
+        <p:column headerText="Ações">
+            <p:commandLink value="Editar" action="#{pessoaBean.editarPessoa(pessoa.id)}"/>
+            <p:commandLink value="Excluir" action="#{pessoaBean.excluirPessoa(pessoa.id)}"
+                           onclick="return confirm('Tem certeza que deseja excluir esta pessoa?')"/>
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>
